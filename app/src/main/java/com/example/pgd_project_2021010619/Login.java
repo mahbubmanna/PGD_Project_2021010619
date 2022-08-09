@@ -5,8 +5,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -16,6 +20,7 @@ public class Login extends AppCompatActivity {
     EditText password;
     Button loginButton;
     Button createAccountButton;
+    CheckBox showHideBox;
 
 
     @Override
@@ -27,6 +32,7 @@ public class Login extends AppCompatActivity {
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.loginButton);
         createAccountButton = findViewById(R.id.createAccountButton);
+        showHideBox = findViewById(R.id.showHideBox);
     }
 
     @Override
@@ -65,6 +71,19 @@ public class Login extends AppCompatActivity {
                 else{
                     Toast.makeText(Login.this, "Account Not Available", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+
+        showHideBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isChecked){
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+
             }
         });
     }

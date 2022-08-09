@@ -4,10 +4,17 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.google.android.material.chip.ChipGroup;
 
 import java.util.ArrayList;
 
@@ -18,6 +25,7 @@ public class Registration extends AppCompatActivity {
     EditText userName;
     EditText password;
     Button regButton;
+    CheckBox showHideBox;
 
 
     @Override
@@ -28,6 +36,7 @@ public class Registration extends AppCompatActivity {
         userName = findViewById(R.id.userName);
         password = findViewById(R.id.password);
         regButton = findViewById(R.id.regButton);
+        showHideBox = findViewById(R.id.showHideBox);
     }
 
     @Override
@@ -45,6 +54,19 @@ public class Registration extends AppCompatActivity {
 
                 Intent loginIntent = new Intent(Registration.this, Login.class);
                 startActivity(loginIntent);
+            }
+        });
+
+        showHideBox.setOnCheckedChangeListener(new OnCheckedChangeListener(){
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (!isChecked){
+                    password.setTransformationMethod(PasswordTransformationMethod.getInstance());
+                }
+                else {
+                    password.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
+                }
+
             }
         });
 
